@@ -1,6 +1,6 @@
 /*.img-responsive {
-	max-width: 10%;  
-	max-height: auto;  
+	max-width: 10%;
+	max-height: auto;
 }*/
 
 /*#addTableID {*/
@@ -12,7 +12,7 @@
 }
 
 body, html {
-	background: linear-gradient(to bottom, #f7fbfc 0%,#d9edf2 40%,#add9e4 100%);
+	background-color: indianred;
 }
 
 h1 {
@@ -95,6 +95,50 @@ html, body {
 
 
 
+/******************
+Game Card
+******************/
+
+#GameCard {
+	background-color:black;
+	width:450px;
+	height:450px;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translateX(-50%) translateY(-50%);
+	z-index: 100;
+	opacity:0.7;
+}
+
+#HideGameCardButton {
+	position: absolute;
+	right:5px;
+	top:5px;
+	width:30px;
+	height:30px;
+	background-color: transparent;
+	border: none;
+}
+
+#JoinGame {
+
+}
 
 
+.SlideInFromTop {
+	animation: 250ms slide ease-in-out;
+	animation-fill-mode: forwards;
+	-webkit-transition: 250ms slide ease-in-out;
+	-webkit-animation-fill-mode: forwards;
+}
 
+@-webkit-keyframes slideFromTop {
+    100% { left: 10px; }
+}
+​
+@keyframes slideFromTop {
+	100% {
+        left: 10px;
+    }
+}
