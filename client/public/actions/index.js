@@ -9,6 +9,7 @@ export const POSSIBLE_LOCATIONS = 'POSSIBLE-LOCATIONS';
 export const DETERMINED_LOCATION = 'DETERMINED-LOCATION';
 export const CLEAR_LOCATIONS = 'CLEAR-LOCATIONS';
 
+
 export function clearPossibleLocations() {
   return function(dispatch) {
     dispatch({ type: CLEAR_LOCATIONS, payload: [] })
@@ -16,14 +17,16 @@ export function clearPossibleLocations() {
 }
 
 export function searchGames(searchObj) {
-  return function(dispatch) {
+  console.log('inside search games general')
+  return dispatch => {
+  console.log('inside search games dispatch')
   axios({
     method: 'GET',
     url: 'https://maps.googleapis.com/maps/api/geocode/json',
     params: {address: searchObj.location, key: 'AIzaSyCndH7ksovHZhafwZMmJB_U7Je644MtnBk'}
   })
-    .then(function(response) {
-      if(response.data.results.length > 1) {
+  .then(function(response) {
+    if(response.data.results.length > 1) {
         dispatch({ type: POSSIBLE_LOCATIONS, payload: response.data.results })
         throw new Error('error on search in actions')
       } else {
@@ -37,13 +40,12 @@ export function searchGames(searchObj) {
           return axios.get('/api/games', searchObj)
       }
     })
-      .then(function(response) {
-        browserHistory.push('/SearchHome')
-        dispatch({ type: SEARCH_GAMES, payload: response.data })
-      })
-      .catch(function(error) {
-        console.log('error in the search games axios calls')
-      })
+    .then(function(response) {
+      dispatch({ type: SEARCH_GAMES, payload: response.data })
+    })
+    .catch(function(error) {
+      console.log('error in the search games axios calls')
+    })
   }
 }
 

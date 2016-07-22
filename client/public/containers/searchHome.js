@@ -3,17 +3,25 @@ import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-import { submitPlayer } from '../actions/index';
 import moment from 'moment';
+import * as actions from '../actions/index'
+import GameCard from '../components/GameCard'
 
 class SearchHome extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      newPlayerName: ''
+      newPlayerName: '',
+      game:''
     }
+    this.handleMarkerClick = this.handleMarkerClick.bind(this)
 
+  }
+
+  componentWillMount() {
+    var searchObj = { sport: 'basketball', location: '340 Main St, Venice, CA 90291' };
+    let data = this.props.searchGames(searchObj);
   }
 
   onMapCreated(map) {
@@ -44,11 +52,11 @@ class SearchHome extends Component {
       if(uniqueId === this.props.searchGames[i].id) {
         let fromStringToArray = JSON.parse(this.props.searchGames[i].joinedPlayers);
         fromStringToArray.push(this.state.newPlayerName);
-        
+
         let addedJoinedPlayer = JSON.stringify(fromStringToArray)
-        
+
         this.props.searchGames[i].joinedPlayers = addedJoinedPlayer;
-        
+
         this.props.searchGames[i].playersNeeded --;
         this.props.submitPlayer(this.props.searchGames[i]);
       }
@@ -87,7 +95,7 @@ class SearchHome extends Component {
   }
 
   searchedGameCards() {
-    return this.props.searchGames.map((game) => {
+    return this.props.games.map((game) => {
       return(
         <div className="valign-wrapper" data-id={game.id}>
           <div className="valign center-block">
@@ -101,11 +109,11 @@ class SearchHome extends Component {
 
                   </div>
                     <h5 className="left-align">
-                      <i className="fa fa-globe fa-lg" aria-hidden="true"></i> 
+                      <i className="fa fa-globe fa-lg" aria-hidden="true"></i>
                       &nbsp; &nbsp;{game.location}
                     </h5>
                     <h5 className="left-align">
-                      <i className="fa fa-calendar" aria-hidden="true"></i> 
+                      <i className="fa fa-calendar" aria-hidden="true"></i>
                       &nbsp; &nbsp;{moment(game.time).format('MMMM Do YYYY \n h:mm a')}
                     </h5>
                     <h5 className="center-align">
@@ -114,44 +122,51 @@ class SearchHome extends Component {
                     <h5 className="card-text center-align"><strong>Rules:</strong> {game.rules}</h5>
                     {this.renderAction(game.playersNeeded)}
                     <p className="left-align">
-                      <i className="fa fa-star" aria-hidden="true"></i> 
+                      <i className="fa fa-star" aria-hidden="true"></i>
                       &nbsp; &nbsp;{game.created_by}
                     </p>
                     <ul>
-                      <i className="fa fa-users fa-lg" aria-hidden="true"></i> 
+                      <i className="fa fa-users fa-lg" aria-hidden="true"></i>
                       <li>{this.displayJoinedPlayer(game.joinedPlayers)}</li>
                     </ul>
                 </div>
 
-          </div>                    
+          </div>
         </div>
       )
     })
   }
 
    gameMarkers() {
-    return this.props.searchGames.map((game) => {
+    return this.props.games.map((game) => {
       return(
         <Marker
           lat={game.lat}
           lng={game.lng}
           label={String.fromCharCode(game.id + 64)}
           draggable={false}
-          onDragEnd={this.onDragEnd} />
+          onDragEnd={this.onDragEnd}
+          onClick={this.handleMarkerClick.bind(null,game)} />
       )
     })
   }
 
- 
+  handleMarkerClick(game){
+    this.setState({
+      game:game
+    })
+    console.log(this.state.game)
+    
+  }
+
 
   render() {
     return (
       <div>
 
       <div id="gamesView">
-        {this.searchedGameCards()}
+        {/* this.searchedGameCards() */}
       </div>
-    
         <div id='map'>
           <Gmaps
             width={'100%'}
@@ -162,17 +177,10 @@ class SearchHome extends Component {
             loadingMessage={'Be happy'}
             params={{v: '3.exp', key: 'AIzaSyAlCGs74Skpymw9LLAjkMg-8jQ1gIue9n8'}}
             onMapCreated={this.onMapCreated}>
-            <Marker
-              lat={this.props.determinedLocation.lat}
-              lng={this.props.determinedLocation.lng}
-              label={'x'}
-              draggable={false}
-              onDragEnd={this.onDragEnd} />
             { this.gameMarkers() }
           </Gmaps>
+          <GameCard game={this.state.game}/>
         </div>
-
-
       </div>
     );
   }
@@ -180,14 +188,9 @@ class SearchHome extends Component {
 
 function mapStateToProps(state) {
   return {
-    searchGames: state.searchGames,
+    games: state.searchGames,
     determinedLocation: state.determinedLocation
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({ submitPlayer }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchHome)
-
+export default connect(mapStateToProps, actions)(SearchHome)
