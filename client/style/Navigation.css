@@ -130,7 +130,6 @@ AddDropDownMenu
 #addFormWrapper {
 	position: fixed;
 	width: 300px;
-	height: 600px;
 	background-color: black;
 	z-index: 0;
 	top: 50%;
@@ -149,13 +148,13 @@ AddDropDownMenu
 	z-index: 4 !important;
 }
 
-/*.FadeOut {
+.FadeOut {
 	animation: 1000ms fadeOutAni;
 	animation-fill-mode: backwards;
 	-webkit-transition: 1000ms fadeOutAni;
 	-webkit-animation-fill-mode: backwards;
 	z-index: 0;
-}*/
+}
 
 @keyframes fadeInAni {
     0% {
@@ -169,7 +168,7 @@ AddDropDownMenu
     }
 }
 
-/*@keyframes fadeOutAni {
+@keyframes fadeOutAni {
     0% {
         opacity: 0.7;
     }
@@ -179,4 +178,4 @@ AddDropDownMenu
     100% {
         opacity: 0;
     }
-}*/
+}

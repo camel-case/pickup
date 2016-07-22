@@ -2,36 +2,71 @@
 add.js
 ********************/
 
+.add-game {
+	margin: auto;
+}
+
 #sport {
-	width: 80%;
+	margin-top: 20px;
+	width: 300px;
+    display: inline-block;
+    box-sizing: border-box;
 }
 
 #rules {
-	width: 80%;
+	width: 300px;
+    display: inline-block;
+    box-sizing: border-box;
 }
 
 #time {
-	width: 80%;
+	width: 300px;
+    display: inline-block;
+    box-sizing: border-box;
 }
 
 #location {
-	width: 80%;
+	width: 300px;
+    display: inline-block;
+    box-sizing: border-box;
 }
 
 #original_players {
-	width: 80%;
+	width: 300px;
+    display: inline-block;
+    box-sizing: border-box;
 }
 
 #needed_players {
-	width: 80%;
+	width: 300px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.addFormSubmit {
+	margin-left: 18%
+}
+
+.addFormCancel {
+	margin-left: 11.5%
+}
+
+#errorMessage {
+	padding-left: 50px;
+	padding-top: 10px;
+}
+
+.form-buttons {
+	margin-bottom: 24px;
 }
 
 input[type=text], input[type=datetime-local] {
-	border-bottom: none;
-	font-size: 2rem;
-	padding-left:  8%;
-	padding-top: 5%;
-	height: 3rem;
+	border-bottom-color: #CD5C5C;
+	border-bottom-width: 1px;
+	font-size: 2.3rem;
+	padding-left:  13%;
+	height: 5rem;
+	margin: 0 0 30px;
 }
 
 table {

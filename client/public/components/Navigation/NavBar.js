@@ -5,6 +5,7 @@ import SearchBar from './SearchBar'
 import AddGame from '../../containers/addGame'
 import AddIcon from 'material-ui/svg-icons/content/add';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import $ from 'jquery';
 
 export default class NavBar extends Component {
 	constructor(props) {
@@ -17,6 +18,12 @@ export default class NavBar extends Component {
 	handleAddFormClick() {
 		console.log(this.state.addForm);
 		this.setState({ addForm: 'FadeIn' })
+	}
+
+	handleCancelClick() {
+		this.setState({ addForm: 'FadeOut' })
+		$("#errorMessage").hide();
+		console.log(this.state.addForm);
 	}
 
   	nav(){
@@ -43,7 +50,11 @@ export default class NavBar extends Component {
 					id="addFormWrapper"
 					className={this.state.addForm}>
 
-					<AddGame id="addFormWrapper"/>
+					<AddGame 
+						id="addFormWrapper"
+						classChange={this.handleCancelClick.bind(this)}
+
+					/>
 
 				</div>
 

@@ -57,9 +57,10 @@ class Add extends Component {
 	}
   
 	if(this.validate.call(this)) {
-	  let arrStringified = JSON.stringify([]);
-	  this.props.submitGame( { sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: address, originalPlayers: this.state.original_players, joinedPlayers: arrStringified, playersNeeded: this.state.needed_players } )
-	  this.props.clearPossibleLocations();
+		this.props.classChange()
+		let arrStringified = JSON.stringify([]);
+		this.props.submitGame( { sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: address, originalPlayers: this.state.original_players, joinedPlayers: arrStringified, playersNeeded: this.state.needed_players } )
+		this.props.clearPossibleLocations();
 	}
   }
 
@@ -104,7 +105,7 @@ class Add extends Component {
 	}
 
 	render() {
-
+		
 		return (
     		<div id="container">
     			<div id="modal1" className="modal">
@@ -116,7 +117,7 @@ class Add extends Component {
         			</div>
       			</div>
 
-		        <div className="row">
+		        <div className="add-form">
 		        	
 	        		<table>
 	        			<thead>
@@ -199,21 +200,24 @@ class Add extends Component {
 	                    	/>
 	                  	</tr>
 	                  	
-      					<div>
-		              		<button
-		              			onClick={ this.onSubmit.bind(this) }
-		              			id="addFormSubmit"
-		              			className="btn red waves-effect waves-light btn"
-		              			type="submit">
-		              				submit
-		              		</button>
+      					<div className="form-buttons">
+      						<span className="addFormSubmit">
+			              		<button
+			              			onClick={ this.onSubmit.bind(this) }
+			              			className="btn red waves-effect waves-light btn"
+			              			type="submit">
+			              				submit
+			              		</button>
+		              		</span>
 
-		              		<button
-		              			id="addFormCancel"
-		              			className="btn red waves-effect waves-light btn"
-		              			type="submit">
-		              				cancel
-		              		</button>
+		              		<span className="addFormCancel">
+			              		<button
+			              			onClick={ this.props.classChange }
+			              			className="btn red waves-effect waves-light btn"
+			              			type="submit">
+			              				cancel
+			              		</button>
+		              		</span>
 		              	</div>
 		              	
 
