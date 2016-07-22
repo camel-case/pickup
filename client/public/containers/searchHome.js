@@ -5,21 +5,24 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import moment from 'moment';
 import * as actions from '../actions/index'
+import GameCard from '../components/GameCard'
 
 class SearchHome extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      newPlayerName: ''
+      newPlayerName: '',
+      game:'',
+      animation:''
     }
-
+    this.handleMarkerClick = this.handleMarkerClick.bind(this)
+    this.handleCancelClick = this.handleCancelClick.bind(this)
   }
 
   componentWillMount() {
     var searchObj = { sport: 'basketball', location: '340 Main St, Venice, CA 90291' };
     let data = this.props.searchGames(searchObj);
-    console.log(data)
   }
 
   onMapCreated(map) {
@@ -44,26 +47,26 @@ class SearchHome extends Component {
     $(event.target).siblings('.newPlayerEntry').show()
   };
 
-  submitNewPlayerEntry(event) {
-    let uniqueId = Number($(event.target).parents('.valign-wrapper').attr('data-id'));
-    for(let i = 0; i < this.props.searchGames.length; i ++) {
-      if(uniqueId === this.props.searchGames[i].id) {
-        let fromStringToArray = JSON.parse(this.props.searchGames[i].joinedPlayers);
-        fromStringToArray.push(this.state.newPlayerName);
-
-        let addedJoinedPlayer = JSON.stringify(fromStringToArray)
-
-        this.props.searchGames[i].joinedPlayers = addedJoinedPlayer;
-
-        this.props.searchGames[i].playersNeeded --;
-        this.props.submitPlayer(this.props.searchGames[i]);
-      }
-    }
-    this.setState({
-      newPlayerName: ''
-    })
-    event.preventDefault()
-  }
+  // submitNewPlayerEntry(event) {
+  //   let uniqueId = Number($(event.target).parents('.valign-wrapper').attr('data-id'));
+  //   for(let i = 0; i < this.props.searchGames.length; i ++) {
+  //     if(uniqueId === this.props.searchGames[i].id) {
+  //       let fromStringToArray = JSON.parse(this.props.searchGames[i].joinedPlayers);
+  //       fromStringToArray.push(this.state.newPlayerName);
+  //
+  //       let addedJoinedPlayer = JSON.stringify(fromStringToArray)
+  //
+  //       this.props.searchGames[i].joinedPlayers = addedJoinedPlayer;
+  //
+  //       this.props.searchGames[i].playersNeeded --;
+  //       this.props.submitPlayer(this.props.searchGames[i]);
+  //     }
+  //   }
+  //   this.setState({
+  //     newPlayerName: ''
+  //   })
+  //   event.preventDefault()
+  // }
 
   displayJoinedPlayer(joinedPlayers) {
   let joinedPlayersArray = JSON.parse(joinedPlayers);
@@ -141,13 +144,26 @@ class SearchHome extends Component {
         <Marker
           lat={game.lat}
           lng={game.lng}
-          label={String.fromCharCode(game.id + 64)}
           draggable={false}
-          onDragEnd={this.onDragEnd} />
+          onDragEnd={this.onDragEnd}
+          onClick={this.handleMarkerClick.bind(null,game)} />
       )
     })
   }
 
+  handleMarkerClick(game){
+    this.setState({
+      game:game,
+      animation:'SlideInFromTop'
+    })
+  }
+
+  handleCancelClick(){
+    console.log('handle cancel click inside search home');
+    this.setState({
+      animation:''
+    })
+  }
 
 
   render() {
@@ -164,11 +180,12 @@ class SearchHome extends Component {
             lat={this.props.determinedLocation.lat || 34.024212}
             lng={this.props.determinedLocation.lng || -118.496475}
             zoom={13}
-            loadingMessage={'Be happy'}
+            zoomControl={true}
             params={{v: '3.exp', key: 'AIzaSyAlCGs74Skpymw9LLAjkMg-8jQ1gIue9n8'}}
             onMapCreated={this.onMapCreated}>
             { this.gameMarkers() }
           </Gmaps>
+          <GameCard animation={this.state.animation} game={this.state.game} handleCancelClick={this.handleCancelClick}/>
         </div>
       </div>
     );

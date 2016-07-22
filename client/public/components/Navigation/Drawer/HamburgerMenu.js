@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import HamburgerIcon from 'material-ui/svg-icons/navigation/menu';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import {List, ListItem} from 'material-ui/List';
+import SvgIcon from 'material-ui/svg-icons/navigation/menu';
+import * as actions from '../../../actions/index';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import _ from 'underscore';
 
-export default class HamburgerMenu extends Component {
-  constructor(props) {
-    super(props)
-}
+
+class HamburgerMenu extends Component {
 
   render() {
     return(
@@ -17,3 +23,11 @@ export default class HamburgerMenu extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    games: state.searchGames,
+  }
+}
+
+export default connect(mapStateToProps, actions)(HamburgerMenu)

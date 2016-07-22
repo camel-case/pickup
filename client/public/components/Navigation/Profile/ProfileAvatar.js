@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Avatar from 'material-ui/Avatar';
+import Avatar from 'material-ui/Avatar/Avatar';
+import ProfileMenu from './ProfileMenu';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ListItem from 'material-ui/List/ListItem';
 import List from 'material-ui/List/List';
@@ -7,6 +8,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 class ProfileAvatar extends Component {
+
+  handleAvatarClick(){
+    console.log('handle avatar click');
+    $("#ProfileMenu").removeClass("SlideOut");
+    $("#ProfileMenu").addClass("SlideIn");
+  }
 
   render() {
 
@@ -20,11 +27,12 @@ class ProfileAvatar extends Component {
            src={img}
           />
         </MuiThemeProvider>
-
+        <ProfileMenu/>
       </div>
     )
   }
 }
+
 
 function mapStateToProps(state) {
   return {

@@ -8,26 +8,92 @@
 }
 
 /*********************
-ProfileAvatar
+Profile
 *********************/
 #ProfileAvatar{
 	padding-top:10px;
-	padding-left:10px;
+	padding-left:15px;
 	width:50px;
 	height:50px;
 }
 
-#ProfileAvatar > img {
-	width: 100%;
-	border: 2px solid #eee;
+
+#ProfileAvatar > img{
+	border: 2px solid white;
 }
 
-svg {
-	fill: #eee !important;
+#ProfileMenu{
+	position: absolute;
+	width:350px;
+	height:175px;
+	background-color: black;
+	opacity:0.7;
+	top:75px;
+	border-radius: 2%;
+	left: -350px;
 }
 
-svg:hover {
-	transform: scale(1.15);
+
+.SlideIn {
+	animation: 250ms slide ease-in-out;
+	animation-fill-mode: forwards;
+	-webkit-transition: 250ms slide ease-in-out;
+	-webkit-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes slide {
+    100% { left: 10px; }
+}
+​
+@keyframes slide {
+	100% {
+        left: 10px;
+    }
+}
+
+
+
+#HideProfileButton {
+	position: absolute;
+	right:5px;
+	top:5px;
+	width:30px;
+	height:30px;
+	background-color: transparent;
+	border: none;
+}
+
+#ProfileMenuTitle{
+	position:absolute;
+	left:50%;
+	transform:translateX(-50%);
+	color:white;
+	font-family:'Pacifico', cursive;
+	font-size: 24px;
+}
+
+#ProfileName{
+	color:white;
+	top:40px;
+	left:10px;
+	font-family: 'Roboto', Arial, serif; font-weight: 300;
+	position: absolute;
+}
+
+#ProfileHomeTown{
+	color:white;
+	top:60px;
+	left:10px;
+	font-family: 'Roboto', Arial, serif; font-weight: 300;
+	position: absolute;
+}
+#ProfileBio{
+	color:white;
+	top:80px;
+	left:10px;
+	font-family: 'Roboto', Arial, serif; font-weight: 300;
+	position: absolute;
+
 }
 
 /********************
@@ -41,6 +107,10 @@ HamburgerMenu
 	width:50px;
 
 }
+#HamburgerButton {
+	background-color: transparent;
+	border: none;
+}
 #title{
 	top:-10px;
 	text-shadow: 0 0 3px indianred;
@@ -52,8 +122,70 @@ HamburgerMenu
 
 #addButton{
 	position:absolute;
-	color: black;
-	top:3px;
-	right:70px;
-
+	z-index: 10;
+	top:7px;
+	right:12px;
+	transition: all .4s;
 }
+
+#addButton:hover {
+	transform: scale(1.15);
+}
+
+/********************
+AddDropDownMenu
+********************/
+
+#addFormWrapper {
+	position: fixed;
+	width: 300px;
+	height: 600px;
+	background-color: black;
+	z-index: 0;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	/*left: 78.5%;*/
+	border-radius: 1.5%;
+	opacity: 0;
+}
+
+.FadeIn {
+	animation: 1000ms fadeInAni;
+	animation-fill-mode: forwards;
+	-webkit-transition: 1000ms fadeInAni;
+	-webkit-animation-fill-mode: forwards;
+	z-index: 4 !important;
+}
+
+/*.FadeOut {
+	animation: 1000ms fadeOutAni;
+	animation-fill-mode: backwards;
+	-webkit-transition: 1000ms fadeOutAni;
+	-webkit-animation-fill-mode: backwards;
+	z-index: 0;
+}*/
+
+@keyframes fadeInAni {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.35;
+    }
+    100% {
+        opacity: 0.7;
+    }
+}
+
+/*@keyframes fadeOutAni {
+    0% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 0.35;
+    }
+    100% {
+        opacity: 0;
+    }
+}*/

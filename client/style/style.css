@@ -24,7 +24,7 @@ h1 {
 }
 
 #fixedNav {
-	/*height: 10%;*/
+	/*height: 1f0%;*/
 	position: fixed;
 }
 
@@ -91,4 +91,114 @@ html, body {
 
 .card.card-panel.hoverable {
 	width: 390px;
+}
+
+
+
+/******************
+Game Card
+******************/
+
+#GameCard {
+	background-color:rgba(0,0,0,.75);
+	width:450px;
+	height:450px;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translateX(-50%) translateY(-50%);
+	z-index: 100;
+	top:-500px;
+	border: 2px solid white;
+	border-radius: 5px;
+}
+
+#HideGameCardButton {
+	position: absolute;
+	right:5px;
+	top:5px;
+	width:30px;
+	height:30px;
+	background-color: transparent;
+	border: none;
+}
+
+#JoinGame {
+
+}
+
+
+.SlideInFromTop {
+	animation: 500ms slideFromTop ease-in-out;
+	animation-fill-mode: forwards;
+	-webkit-transition: 500ms slideFromTop ease-in-out;
+	-webkit-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes slideFromTop {
+    100% { top: 375px; }
+}
+​
+@keyframes slideFromTop {
+	100% {
+        top: 375px;
+    }
+}
+
+.SlideOutToTop {
+	animation: 250ms slideOutTop ease-in-out;
+	animation-fill-mode: forwards;
+	-webkit-transition: 250ms slideOutTop ease-in-out;
+	-webkit-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes slideOutTop {
+    100% { top: -500px; }
+}
+​
+@keyframes slideOutTop {
+	100% {
+        top: -500px;
+    }
+}
+
+#GameCard{
+	padding: 20px;
+}
+
+#GameCardTitle {
+	color:white;
+	font-family: 'Pacifico', cursive;
+	font-size:32px;
+	text-align: center;
+}
+
+#GameCardAuthor, #GameCardPlayerCount, #GameCardPlayers, #GameRules , #GameLocation {
+	color:white;
+	font-family: 'Roboto';
+	font-size:20px;
+}
+
+/*#GameCardPlayerCount {
+	top: 125px;
+}
+
+#GameCardPlayers {
+	top: 175px;
+	width:100%;
+	text-align: center;
+}
+
+#GameRules {
+	top: 225px;
+}
+
+#GameLocation {
+	top: 275px;
+
+}*/
+
+.g-card-title {
+	color: indianred;
+	font-weight: 700;
 }

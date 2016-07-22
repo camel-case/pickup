@@ -1,0 +1,44 @@
+/********************
+add.js
+********************/
+
+#sport {
+	width: 80%;
+}
+
+#rules {
+	width: 80%;
+}
+
+#time {
+	width: 80%;
+}
+
+#location {
+	width: 80%;
+}
+
+#original_players {
+	width: 80%;
+}
+
+#needed_players {
+	width: 80%;
+}
+
+input[type=text], input[type=datetime-local] {
+	border-bottom: none;
+	font-size: 2rem;
+	padding-left:  8%;
+	padding-top: 5%;
+	height: 3rem;
+}
+
+table {
+	width: 300;
+	height: 600;
+}
+
+.form-control {
+	color: white;
+}
