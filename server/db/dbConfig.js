@@ -1,11 +1,7 @@
-var mysql = require('mysql');
-
-var connection = {
-  host : 'pickups.justinpchen.com',
-  user : 'psbyron3',
+module.exports = {
+  host: 'pickups-camelcase.justinpchen.com',
+  user : 'camelcase',
   password : 'cocacola1',
-  database : 'm2p_pickups_db',
+  database : 'pickups_camelcase',
   charset : 'utf8'
 }
-
-module.exports = connection;
