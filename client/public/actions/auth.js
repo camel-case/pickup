@@ -19,41 +19,40 @@ var config = ({
 
 firebase.initializeApp(config);
 
-function authenticate(provider) {
-  // return function(store) {
-    firebase.auth().signInWithPopup(provider)
-      .then(result => store.dispatch(signInSuccess(result)))
-      .catch(error => store.dispatch(signInError(error)));
-  // };
-}
 
-export function signInWithFacebook() {
-  return authenticate(new firebase.auth.FacebookAuthProvider());
-}
-
-export function signInError(error) {
-  return {
-    type: SIGN_IN_ERROR,
-    payload: error
+export function authenticate() {
+  return dispatch => {
+    firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider())
+      .then(result => {
+        browserHistory.push('/Home');
+        dispatch(signInSuccess(result))
+      })
   };
 }
 
 export function signInSuccess(result) {
-  console.log(result)
-  browserHistory.push('/Home');
   return {
     type: SIGN_IN_SUCCESS,
-    payload: result.user
+    payload: result
   };
 }
 
 export function requireAuth(nextState, replace) {
-  // if (!firebaseUtils.isLoggedIn()) {
-  console.log('inside require auth')
-  if (false) {
+  if (authState()) {
     replace({
       pathname: '/',
       state: { nextPathname: nextState.location.pathname }
     })
   }
+}
+
+export function authState() {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (store.getState().userAuth.data) {
+      return true;
+    } else {
+      browserHistory.push('/');
+      return false;
+    }
+  });
 }

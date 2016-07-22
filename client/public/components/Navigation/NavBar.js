@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import ProfileAvatar from './Profile/ProfileAvatar'
 import HamburgerMenu from './Drawer/HamburgerMenu'
 import AddButton from './addButton'

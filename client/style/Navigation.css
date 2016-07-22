@@ -1,9 +1,10 @@
 #Navigation{
-	background-color: indianred;
+	background-color: rgba(205, 92, 92, 0.75);
 	width:100%;
 	height:65px;
 	position:absolute;
 	z-index: 4;
+	border-bottom: 2px solid indianred;
 }
 
 /*********************
@@ -42,6 +43,7 @@ HamburgerMenu
 }
 #title{
 	top:-10px;
+	text-shadow: 0 0 3px indianred;
 	position:absolute;
 	left:50%;
 	color: #eee;
