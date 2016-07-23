@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import ProfileAvatar from './Profile/ProfileAvatar'
-import HamburgerMenu from './Drawer/HamburgerMenu'
 import SearchBar from './SearchBar'
 import AddGame from '../../containers/addGame'
 import AddIcon from 'material-ui/svg-icons/content/add';
@@ -33,14 +34,13 @@ export default class NavBar extends Component {
 
 				<div id="Navigation">
 			   		<ProfileAvatar />
-			   		<HamburgerMenu />
 			   		<h1 id="title" className = "text-center">PickUpz</h1>
 				   		<div
 				   			id="addButton"
 				   			onClick={this.handleAddFormClick.bind(this)}
 				   		>
 			   				<MuiThemeProvider>
-    							<AddIcon style={{'width':'50px','height':'50px'}}/>
+    							<AddIcon style={{'width':'50px','height':'50px', 'fill': 'white'}}/>
     						</MuiThemeProvider>
 			   			</div>
 			   		<SearchBar />

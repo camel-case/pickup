@@ -4,13 +4,10 @@ import ProfileMenu from './ProfileMenu';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ListItem from 'material-ui/List/ListItem';
 import List from 'material-ui/List/List';
-import $ from 'jquery';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-export default class ProfileAvatar extends Component {
-  constructor(props) {
-    super(props)
-}
-
+class ProfileAvatar extends Component {
 
   handleAvatarClick(){
     console.log('handle avatar click');
@@ -19,18 +16,28 @@ export default class ProfileAvatar extends Component {
   }
 
   render() {
+
+    let img = this.props.userData.data ? this.props.userData.data.photoURL : ''
+
     return(
       <div id="ProfileAvatar">
         <MuiThemeProvider>
          <Avatar
            style={{'width':'45px','height':'45px'}}
-           src="https://avatars0.githubusercontent.com/u/13908543?v=3&s=400"
-           onClick={this.handleAvatarClick}
+           src={img}
           />
         </MuiThemeProvider>
         <ProfileMenu/>
-      </div> 
+      </div>
     )
   }
 }
 
+
+function mapStateToProps(state) {
+  return {
+    userData: state.userAuth,
+  }
+}
+
+export default connect(mapStateToProps)(ProfileAvatar)

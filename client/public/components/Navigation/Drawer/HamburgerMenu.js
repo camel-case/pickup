@@ -12,66 +12,14 @@ import _ from 'underscore';
 
 
 class HamburgerMenu extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      open : false
-    }
-    this.handleOpenDrawer = this.handleOpenDrawer.bind(this);
-}
-
-createGameItems(){
-    var games = this.props.games;
-    var listItems = _.map(games,function(map){
-      var location = map.location;
-      var author = map.created_by;
-      
-      var players = JSON.parse(map.joinedPlayers);
-      var playersNeeded = map.playersNeeded;
-      var rules = map.rules;
-      var sport = map.sport;
-      return (
-        <ListItem 
-               onClick={this.handleListItemClick}
-               primaryText={
-                  <p>{sport}</p>
-              }
-               secondaryText={
-                <p>
-                  <span>Players: {players.length} / {playersNeeded} </span><br />
-                  <span>Location: 604 Arizona Ave</span><br />
-                </p>
-              }
-              secondaryTextLines={2}
-            />
-      )
-    })
-    return listItems;
-}
-
-handleOpenDrawer(){
-  this.setState({
-    open: !this.state.open
-  });
-}
 
   render() {
-    var listItems = this.createGameItems();
     return(
     <div id = "HamMenu">
-
-        <button type="button" id="HamburgerButton" onClick={this.handleOpenDrawer} >
-          <MuiThemeProvider>
-            <SvgIcon style={{'width':'50px','height':'50px'}}/>
-          </MuiThemeProvider>
-        </button>
-        <MuiThemeProvider>
-          <Drawer open={this.state.open} openSecondary={true}>
-            {listItems}
-          </Drawer>
-        </MuiThemeProvider>
-    </div>  
-
+    	<MuiThemeProvider>
+    		<HamburgerIcon style={{'width':'45px','height':'45px', 'marginTop':'5px'}} />
+    	</MuiThemeProvider>
+    </div>
     )
   }
 }

@@ -47,26 +47,26 @@ class SearchHome extends Component {
     $(event.target).siblings('.newPlayerEntry').show()
   };
 
-  submitNewPlayerEntry(event) {
-    let uniqueId = Number($(event.target).parents('.valign-wrapper').attr('data-id'));
-    for(let i = 0; i < this.props.searchGames.length; i ++) {
-      if(uniqueId === this.props.searchGames[i].id) {
-        let fromStringToArray = JSON.parse(this.props.searchGames[i].joinedPlayers);
-        fromStringToArray.push(this.state.newPlayerName);
-
-        let addedJoinedPlayer = JSON.stringify(fromStringToArray)
-
-        this.props.searchGames[i].joinedPlayers = addedJoinedPlayer;
-
-        this.props.searchGames[i].playersNeeded --;
-        this.props.submitPlayer(this.props.searchGames[i]);
-      }
-    }
-    this.setState({
-      newPlayerName: ''
-    })
-    event.preventDefault()
-  }
+  // submitNewPlayerEntry(event) {
+  //   let uniqueId = Number($(event.target).parents('.valign-wrapper').attr('data-id'));
+  //   for(let i = 0; i < this.props.searchGames.length; i ++) {
+  //     if(uniqueId === this.props.searchGames[i].id) {
+  //       let fromStringToArray = JSON.parse(this.props.searchGames[i].joinedPlayers);
+  //       fromStringToArray.push(this.state.newPlayerName);
+  //
+  //       let addedJoinedPlayer = JSON.stringify(fromStringToArray)
+  //
+  //       this.props.searchGames[i].joinedPlayers = addedJoinedPlayer;
+  //
+  //       this.props.searchGames[i].playersNeeded --;
+  //       this.props.submitPlayer(this.props.searchGames[i]);
+  //     }
+  //   }
+  //   this.setState({
+  //     newPlayerName: ''
+  //   })
+  //   event.preventDefault()
+  // }
 
   displayJoinedPlayer(joinedPlayers) {
   let joinedPlayersArray = JSON.parse(joinedPlayers);
@@ -144,7 +144,6 @@ class SearchHome extends Component {
         <Marker
           lat={game.lat}
           lng={game.lng}
-          label={String.fromCharCode(game.id + 64)}
           draggable={false}
           onDragEnd={this.onDragEnd}
           onClick={this.handleMarkerClick.bind(null,game)} />
@@ -162,7 +161,7 @@ class SearchHome extends Component {
   handleCancelClick(){
     console.log('handle cancel click inside search home');
     this.setState({
-      animation:'SlideOutToTop'
+      animation:''
     })
   }
 
@@ -181,7 +180,7 @@ class SearchHome extends Component {
             lat={this.props.determinedLocation.lat || 34.024212}
             lng={this.props.determinedLocation.lng || -118.496475}
             zoom={13}
-            loadingMessage={'Be happy'}
+            zoomControl={true}
             params={{v: '3.exp', key: 'AIzaSyAlCGs74Skpymw9LLAjkMg-8jQ1gIue9n8'}}
             onMapCreated={this.onMapCreated}>
             { this.gameMarkers() }

@@ -1,9 +1,10 @@
 #Navigation{
-	background-color: indianred;
+	background-color: rgba(205, 92, 92, 0.75);
 	width:100%;
 	height:65px;
 	position:absolute;
 	z-index: 4;
+	border-bottom: 2px solid indianred;
 }
 
 /*********************
@@ -11,11 +12,15 @@ Profile
 *********************/
 #ProfileAvatar{
 	padding-top:10px;
-	padding-left:10px;
+	padding-left:15px;
 	width:50px;
 	height:50px;
 }
 
+
+#ProfileAvatar > img{
+	border: 2px solid white;
+}
 
 #ProfileMenu{
 	position: absolute;
@@ -108,6 +113,7 @@ HamburgerMenu
 }
 #title{
 	top:-10px;
+	text-shadow: 0 0 3px indianred;
 	position:absolute;
 	left:50%;
 	color: #eee;
@@ -116,11 +122,14 @@ HamburgerMenu
 
 #addButton{
 	position:absolute;
-	color: black;
 	z-index: 10;
-	top:3px;
-	right:70px;	
-	
+	top:7px;
+	right:12px;
+	transition: all .4s;
+}
+
+#addButton:hover {
+	transform: scale(1.15);
 }
 
 /********************
@@ -141,17 +150,17 @@ AddDropDownMenu
 }
 
 .FadeIn {
-	animation: 1000ms fadeInAni;
+	animation: 500ms fadeInAni;
 	animation-fill-mode: forwards;
-	-webkit-transition: 1000ms fadeInAni;
+	-webkit-transition: 500ms fadeInAni;
 	-webkit-animation-fill-mode: forwards;
 	z-index: 4 !important;
 }
 
 .FadeOut {
-	animation: 1000ms fadeOutAni;
+	animation: 500ms fadeOutAni;
 	animation-fill-mode: backwards;
-	-webkit-transition: 1000ms fadeOutAni;
+	-webkit-transition: 500ms fadeOutAni;
 	-webkit-animation-fill-mode: backwards;
 	z-index: 0;
 }
@@ -160,20 +169,14 @@ AddDropDownMenu
     0% {
         opacity: 0;
     }
-    50% {
-        opacity: 0.35;
-    }
     100% {
-        opacity: 0.7;
+        opacity: 0.77;
     }
 }
 
 @keyframes fadeOutAni {
     0% {
-        opacity: 0.7;
-    }
-    50% {
-        opacity: 0.35;
+        opacity: 0.77;
     }
     100% {
         opacity: 0;

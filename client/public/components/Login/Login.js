@@ -7,9 +7,14 @@ class Login extends Component {
   render() {
 
     return(
-      <div>
-          <h1 id="login-title">Sign in</h1>
-          <button onClick={actions.signInWithFacebook} type="button">Facebook</button>
+      <div className="container">
+        <h1 id="login-title">PickUpz</h1>
+        <div className="col-md-offset-3 col-md-6 login-container">
+          <h2 id="login-title">Sign in</h2>
+          <div className="form-actions">
+            <button id="login-btn" onClick={this.props.authenticate} type="button">Facebook</button>
+          </div>
+        </div>
       </div>
     )
   }
