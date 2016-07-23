@@ -4,9 +4,10 @@ import moment from 'moment';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { submitGame, clearPossibleLocations } from '../actions/index';
+// import { submitGame, clearPossibleLocations } from '../actions/index';
+import * as actions from '../actions/index';
 
-class Add extends Component { 
+class Add extends Component {
   constructor(props) {
 	super(props)
 
@@ -26,11 +27,11 @@ class Add extends Component {
 	$("#errorMessage").hide();
   }
 
-  componentDidUpdate() {
-	if(this.props.possibleLocations.length > 1) {
-	  $('.modal').show();
-	}
-  }
+  // componentDidUpdate() {
+	// if(this.props.possibleLocations.length > 1) {
+	//   $('.modal').show();
+	// }
+  // }
 
   onInputChange(input, event) {
 	const myObj = {
@@ -39,28 +40,37 @@ class Add extends Component {
 	this.setState(myObj)
   }
 
-  listOfPossibleLocations() {
-	return this.props.possibleLocations.map((location) =>{
-	   return(
-		<div  className="listOfPossibleLocations" onClick={ this.onSubmit.bind(this, location.formatted_address) }>{ location.formatted_address }</div>
-	  )
-	})
-  }
+  // listOfPossibleLocations() {
+	// return this.props.possibleLocations.map((location) =>{
+	//    return(
+	// 	<div  className="listOfPossibleLocations" onClick={ this.onSubmit.bind(this, location.formatted_address) }>{ location.formatted_address }</div>
+	//   )
+	// })
+  // }
 
   onSubmit() {
-	let address;
-	console.log(arguments, 'arguments inside submit')
-	if(typeof arguments[0] !== 'string') {
-	  address = this.state.location
-	} else {
-	  address = arguments[0]
-	}
-  
-	if(this.validate.call(this)) {
-	  let arrStringified = JSON.stringify([]);
-	  this.props.submitGame( { sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: address, originalPlayers: this.state.original_players, joinedPlayers: arrStringified, playersNeeded: this.state.needed_players } )
-	  this.props.clearPossibleLocations();
-	}
+  	// let address;
+  	// console.log(arguments, 'arguments inside submit')
+  	// if(typeof arguments[0] !== 'string') {
+  	//   address = this.state.location
+  	// } else {
+  	//   address = arguments[0]
+  	// }
+
+  	// if(this.validate.call(this)) {
+  		// this.props.classChange()
+  		// let arrStringified = JSON.stringify([]);
+  		this.props.submitGame( {
+          sport: this.state.sport,
+          rules: this.state.rules,
+          time: this.state.time,
+          address: this.state.location,
+          originalPlayers: this.state.original_players,
+          playersNeeded: this.state.needed_players
+        } )
+        // joinedPlayers: arrStringified,
+  		// this.props.clearPossibleLocations();
+  	// }
   }
 
 	validate() {
@@ -111,13 +121,13 @@ class Add extends Component {
         			<div className="modal-content">
           				<h4>Confirm Location</h4>
 	          			<div>
-	          				{ this.listOfPossibleLocations() }
+	          				{ /*this.listOfPossibleLocations()*/ }
 	          			</div>
         			</div>
       			</div>
 
-		        <div className="row">
-		        	
+		        <div className="add-form">
+
 	        		<table>
 	        			<thead>
 	        				<tr>
@@ -193,32 +203,35 @@ class Add extends Component {
 	                    		className="resetError"
 	                    		onChange={ this.onInputChange.bind(this, 'needed_players') }
 	                    		value={ this.state.needed_players }
-	                    		placeholder='Needed Players' 
+	                    		placeholder='Needed Players'
 	                    		type="text"
 	                    		className="form-control"
 	                    	/>
 	                  	</tr>
-	                  	
-      					<div>
-		              		<button
-		              			onClick={ this.onSubmit.bind(this) }
-		              			id="addFormSubmit"
-		              			className="btn red waves-effect waves-light btn"
-		              			type="submit">
-		              				submit
-		              		</button>
 
-		              		<button
-		              			id="addFormCancel"
-		              			className="btn red waves-effect waves-light btn"
-		              			type="submit">
-		              				cancel
-		              		</button>
+      					<div className="form-buttons">
+      						<span className="addFormSubmit">
+			              		<button
+			              			onClick={ this.onSubmit.bind(this) }
+			              			className="btn red waves-effect waves-light btn"
+			              			type="submit">
+			              				submit
+			              		</button>
+		              		</span>
+
+		              		<span className="addFormCancel">
+			              		<button
+			              			onClick={ this.props.classChange }
+			              			className="btn red waves-effect waves-light btn"
+			              			type="submit">
+			              				cancel
+			              		</button>
+		              		</span>
 		              	</div>
-		              	
+
 
 	            	</table>
-		        </div> 
+		        </div>
 		    </div>
 		)
 
@@ -226,14 +239,14 @@ class Add extends Component {
 }
 
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({ submitGame, clearPossibleLocations }, dispatch);
-}
+// function mapDispatchToProps(dispatch){
+//   return bindActionCreators({ submitGame, clearPossibleLocations }, dispatch);
+// }
 
-function mapStateToProps(state) {
-  return {
-	possibleLocations: state.possibleLocations
-  }
-}
+// function mapStateToProps(state) {
+//   return {
+// 	   possibleLocations: state.possibleLocations
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Add)
+export default connect(null, actions)(Add)

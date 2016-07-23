@@ -85,7 +85,7 @@ export function submitGame(gameObj) {
 }
 
 export function submitPlayer(playerObj) {
-  return dispatch => {
+  return function(dispatch) {
     axios.put('/api/games', playerObj)
       .then(function(response) {
         dispatch({ type: SUBMIT_PLAYER, payload: response.data})

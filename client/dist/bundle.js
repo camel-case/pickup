@@ -71182,6 +71182,10 @@
 	
 	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 	
+	var _jquery = __webpack_require__(309);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71209,6 +71213,13 @@
 			value: function handleAddFormClick() {
 				console.log(this.state.addForm);
 				this.setState({ addForm: 'FadeIn' });
+			}
+		}, {
+			key: 'handleCancelClick',
+			value: function handleCancelClick() {
+				this.setState({ addForm: 'FadeOut' });
+				(0, _jquery2.default)("#errorMessage").hide();
+				console.log(this.state.addForm);
 			}
 		}, {
 			key: 'nav',
@@ -71244,7 +71255,11 @@
 						{
 							id: 'addFormWrapper',
 							className: this.state.addForm },
-						_react2.default.createElement(_addGame2.default, { id: 'addFormWrapper' })
+						_react2.default.createElement(_addGame2.default, {
+							id: 'addFormWrapper',
+							classChange: this.handleCancelClick.bind(this)
+	
+						})
 					)
 				);
 			}
@@ -73538,6 +73553,10 @@
 	
 	var _index = __webpack_require__(260);
 	
+	var actions = _interopRequireWildcard(_index);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -73547,6 +73566,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	// import { submitGame, clearPossibleLocations } from '../actions/index';
+	
 	
 	var Add = function (_Component) {
 		_inherits(Add, _Component);
@@ -73574,13 +73595,13 @@
 			value: function componentDidMount() {
 				(0, _jquery2.default)("#errorMessage").hide();
 			}
-		}, {
-			key: 'componentDidUpdate',
-			value: function componentDidUpdate() {
-				if (this.props.possibleLocations.length > 1) {
-					(0, _jquery2.default)('.modal').show();
-				}
-			}
+	
+			// componentDidUpdate() {
+			// if(this.props.possibleLocations.length > 1) {
+			//   $('.modal').show();
+			// }
+			// }
+	
 		}, {
 			key: 'onInputChange',
 			value: function onInputChange(input, event) {
@@ -73588,35 +73609,40 @@
 				myObj[input] = event.target.value;
 				this.setState(myObj);
 			}
-		}, {
-			key: 'listOfPossibleLocations',
-			value: function listOfPossibleLocations() {
-				var _this2 = this;
 	
-				return this.props.possibleLocations.map(function (location) {
-					return _react2.default.createElement(
-						'div',
-						{ className: 'listOfPossibleLocations', onClick: _this2.onSubmit.bind(_this2, location.formatted_address) },
-						location.formatted_address
-					);
-				});
-			}
+			// listOfPossibleLocations() {
+			// return this.props.possibleLocations.map((location) =>{
+			//    return(
+			// 	<div  className="listOfPossibleLocations" onClick={ this.onSubmit.bind(this, location.formatted_address) }>{ location.formatted_address }</div>
+			//   )
+			// })
+			// }
+	
 		}, {
 			key: 'onSubmit',
 			value: function onSubmit() {
-				var address = void 0;
-				console.log(arguments, 'arguments inside submit');
-				if (typeof arguments[0] !== 'string') {
-					address = this.state.location;
-				} else {
-					address = arguments[0];
-				}
+				// let address;
+				// console.log(arguments, 'arguments inside submit')
+				// if(typeof arguments[0] !== 'string') {
+				//   address = this.state.location
+				// } else {
+				//   address = arguments[0]
+				// }
 	
-				if (this.validate.call(this)) {
-					var arrStringified = JSON.stringify([]);
-					this.props.submitGame({ sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: address, originalPlayers: this.state.original_players, joinedPlayers: arrStringified, playersNeeded: this.state.needed_players });
-					this.props.clearPossibleLocations();
-				}
+				// if(this.validate.call(this)) {
+				// this.props.classChange()
+				// let arrStringified = JSON.stringify([]);
+				this.props.submitGame({
+					sport: this.state.sport,
+					rules: this.state.rules,
+					time: this.state.time,
+					address: this.state.location,
+					originalPlayers: this.state.original_players,
+					playersNeeded: this.state.needed_players
+				});
+				// joinedPlayers: arrStringified,
+				// this.props.clearPossibleLocations();
+				// }
 			}
 		}, {
 			key: 'validate',
@@ -73677,16 +73703,12 @@
 								null,
 								'Confirm Location'
 							),
-							_react2.default.createElement(
-								'div',
-								null,
-								this.listOfPossibleLocations()
-							)
+							_react2.default.createElement('div', null)
 						)
 					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'add-form' },
 						_react2.default.createElement(
 							'table',
 							null,
@@ -73781,23 +73803,30 @@
 							),
 							_react2.default.createElement(
 								'div',
-								null,
+								{ className: 'form-buttons' },
 								_react2.default.createElement(
-									'button',
-									{
-										onClick: this.onSubmit.bind(this),
-										id: 'addFormSubmit',
-										className: 'btn red waves-effect waves-light btn',
-										type: 'submit' },
-									'submit'
+									'span',
+									{ className: 'addFormSubmit' },
+									_react2.default.createElement(
+										'button',
+										{
+											onClick: this.onSubmit.bind(this),
+											className: 'btn red waves-effect waves-light btn',
+											type: 'submit' },
+										'submit'
+									)
 								),
 								_react2.default.createElement(
-									'button',
-									{
-										id: 'addFormCancel',
-										className: 'btn red waves-effect waves-light btn',
-										type: 'submit' },
-									'cancel'
+									'span',
+									{ className: 'addFormCancel' },
+									_react2.default.createElement(
+										'button',
+										{
+											onClick: this.props.classChange,
+											className: 'btn red waves-effect waves-light btn',
+											type: 'submit' },
+										'cancel'
+									)
 								)
 							)
 						)
@@ -73809,17 +73838,17 @@
 		return Add;
 	}(_react.Component);
 	
-	function mapDispatchToProps(dispatch) {
-		return (0, _redux.bindActionCreators)({ submitGame: _index.submitGame, clearPossibleLocations: _index.clearPossibleLocations }, dispatch);
-	}
+	// function mapDispatchToProps(dispatch){
+	//   return bindActionCreators({ submitGame, clearPossibleLocations }, dispatch);
+	// }
 	
-	function mapStateToProps(state) {
-		return {
-			possibleLocations: state.possibleLocations
-		};
-	}
+	// function mapStateToProps(state) {
+	//   return {
+	// 	   possibleLocations: state.possibleLocations
+	//   }
+	// }
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Add);
+	exports.default = (0, _reactRedux.connect)(null, actions)(Add);
 
 /***/ },
 /* 623 */

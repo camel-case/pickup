@@ -32,10 +32,10 @@ h1 {
 	color: white;
 }
 
-.fieldError {
+/*.fieldError {
 	border-color: red;
 	border-width: 3px;
-}
+}*/
 
 #errorMessage {
 	display: none;
